@@ -1,0 +1,15 @@
+version: '3'
+
+tasks:
+  start:
+    desc: start service with docker-compose
+    cmds:
+      - docker-compose up -d
+  stop:
+    desc: stop service with docker-compose
+    cmds:
+      - docker-compose down -v
+  clean:
+    desc: clean service with docker-compose
+    cmds:
+      - docker-compose down -v
