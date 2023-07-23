@@ -1,10 +1,19 @@
 version: '3'
 
 includes:
-  service: ./tasks/Taskfile.service.yml
+  service: ./taskfiles/services.yml
+  util: ./taskfiles/Utils.yml
 
 tasks:
   default:
     desc: show commands
     cmds:
       - task -l --sort none
+  init:
+    desc: init project
+    cmds:
+      - ./init.sh
+      - cp .env.template .env
+      - echo -e "\033[0;32m-------Notice-------\033[0m"
+      - echo -e "\033[0;32mFill in the contents of the .env later\033[0m"
+    silent: true
