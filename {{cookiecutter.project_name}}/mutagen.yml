@@ -1,0 +1,7 @@
+sync:
+  defaults:
+    ignore:
+      vcs: true
+  {{cookiecutter.project_name}}:
+    alpha: "./"
+    beta: "shana:~/projects/{{cookiecutter.project_name}}"
