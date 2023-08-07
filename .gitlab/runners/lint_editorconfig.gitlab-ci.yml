@@ -1,5 +1,0 @@
-editorconfig-check:
-  stage: lint
-  image: editorconfig/editorconfig-checker
-  script:
-    - /usr/bin/editorconfig-checker
