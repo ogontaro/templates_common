@@ -11,13 +11,13 @@ jobs:
     runs-on: ogontaro-runners
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Install Git
         run: |
           sudo apt-get update
           sudo apt-get install -y git
+
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Set up Git credentials
         env:
