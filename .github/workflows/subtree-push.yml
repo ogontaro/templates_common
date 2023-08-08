@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # 全ての履歴をクローン
+          fetch-depth: 0 # 全ての履歴をクローン
 
       - name: List directory contents
         run: |
@@ -42,6 +42,7 @@ jobs:
 
       - name: Push to subtrees
         run: |
+          git fetch origin
           current_branch=$(git rev-parse --abbrev-ref HEAD)
           
           # templates/ogontaro_infraディレクトリの変更を確認
