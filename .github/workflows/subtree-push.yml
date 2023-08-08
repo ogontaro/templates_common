@@ -21,6 +21,11 @@ jobs:
         with:
           fetch-depth: 0  # 全ての履歴をクローン
 
+      - name: List directory contents
+        run: |
+          pwd
+          ls -la
+
       - name: Set up Git credentials
         env:
           GIT_ACCESS_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
