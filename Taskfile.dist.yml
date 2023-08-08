@@ -1,8 +1,5 @@
 version: '3'
 
-includes:
-  mutagen: ./taskfiles/mutagens.yml
-
 tasks:
   default:
     desc: show commands
@@ -27,3 +24,4 @@ tasks:
         else
             git subtree push --prefix=templates/application git@github.com:ogontaro/templates_application.git $current_branch
         fi
+    silent: true
