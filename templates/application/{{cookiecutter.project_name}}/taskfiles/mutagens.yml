@@ -1,0 +1,11 @@
+version: '3'
+
+tasks:
+  start:
+    desc: start mutagen
+    cmds:
+      - mutagen project start
+  stop:
+    desc: stop mutagen
+    cmds:
+      - mutagen project terminate
