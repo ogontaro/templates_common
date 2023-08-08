@@ -5,6 +5,15 @@ tasks:
     desc: show commands
     cmds:
       - task -l --sort none
+  pull-all-subrepository:
+    desc: pull all subrepository
+    cmds:
+      - |
+        current_branch=$(git rev-parse --abbrev-ref HEAD)
+        
+        git subtree pull --prefix=templates/ogontaro_infra git@github.com:ogontaro/templates_ogontaro_infra.git $current_branch
+        git subtree pull --prefix=templates/application git@github.com:ogontaro/templates_application.git $current_branch
+    silent: true
   push-to-subrepository:
     desc: push to subrepository
     cmds:
