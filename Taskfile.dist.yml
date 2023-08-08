@@ -1,0 +1,29 @@
+version: '3'
+
+includes:
+  mutagen: ./taskfiles/mutagens.yml
+
+tasks:
+  default:
+    desc: show commands
+    cmds:
+      - task -l --sort none
+  push-to-subrepository:
+    desc: push to subrepository
+    cmds:
+      - |
+        current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+        # templates/ogontaro_infraディレクトリの変更を確認
+        if git diff --quiet HEAD^ HEAD -- templates/ogontaro_infra; then
+            echo "No changes in templates/ogontaro_infra"
+        else
+            git subtree push --prefix=templates/ogontaro_infra git@github.com:ogontaro/templates_ogontaro_infra.git $current_branch
+        fi
+
+        # templates/applicationディレクトリの変更を確認
+        if git diff --quiet HEAD^ HEAD -- templates/application; then
+            echo "No changes in templates/application"
+        else
+            git subtree push --prefix=templates/application git@github.com:ogontaro/templates_application.git $current_branch
+        fi
