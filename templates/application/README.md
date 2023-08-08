@@ -7,5 +7,5 @@
 cookiecutter gh:ogontaro/template_application
 
 # プロジェクト名を指定してプロジェクトを作成
-cookiecutter gh:ogontaro/template_application --no-input project_name=awesome_app
+cookiecutter gh:ogontaro/template_application --no-input project_name=awesome_application
 ```
