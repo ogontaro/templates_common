@@ -1,0 +1,13 @@
+version: '3'
+
+tasks:
+  _check_init:
+    internal: true
+    desc: Check if init task is executed
+    silent: true
+    cmds:
+      - |
+        if [ ! -f ".env" ]; then
+          echo "Please run 'task init' first to initialize the project."
+          exit 1
+        fi
