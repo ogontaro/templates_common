@@ -8,7 +8,7 @@ on:
 
 jobs:
   push-subtrees:
-    runs-on: ogontaro-runners
+    runs-on: templates-runners
 
     steps:
       - name: Install Git
