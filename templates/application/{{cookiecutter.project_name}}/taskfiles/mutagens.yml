@@ -5,7 +5,14 @@ tasks:
     desc: start mutagen
     cmds:
       - mutagen project start
+    silent: true
+  status:
+    desc: show mutagen status
+    cmds:
+      - mutagen project list
+    silent: true
   stop:
     desc: stop mutagen
     cmds:
       - mutagen project terminate
+    silent: true

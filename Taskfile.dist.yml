@@ -13,6 +13,7 @@ tasks:
         
         git subtree pull --prefix=templates/ogontaro_infra git@github.com:ogontaro/templates_ogontaro_infra.git $current_branch
         git subtree pull --prefix=templates/application git@github.com:ogontaro/templates_application.git $current_branch
+        git commit --no-edit
     silent: true
   push-to-subrepository:
     desc: push to subrepository
