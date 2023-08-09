@@ -2,22 +2,26 @@ init:
 	task init
 .PHONY: init
 
-service_start:
+service.start:
 	task service:start
-.PHONY: service_start
+.PHONY: service.start
 
-service_stop:
+service.stop:
 	task service:stop
-.PHONY: service_stop
+.PHONY: service.stop
 
-service_clean:
+service.clean:
 	task service:clean
-.PHONY: service_clean
+.PHONY: service.clean
 
-mutagen_start:
+mutagen.start:
 	task mutagen:start
-.PHONY: mutagen_start
+.PHONY: mutagen.start
 
-mutagen_stop:
+mutagen.status:
+	task mutagen:status
+.PHONY: mutagen.status
+
+mutagen.stop:
 	task mutagen:stop
-.PHONY: mutagen_stop
+.PHONY: mutagen.stop
