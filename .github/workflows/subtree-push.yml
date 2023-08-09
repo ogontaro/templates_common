@@ -11,20 +11,10 @@ jobs:
     runs-on: templates-runners
 
     steps:
-      - name: Install Git
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
-
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0 # 全ての履歴をクローン
-
-      - name: List directory contents
-        run: |
-          pwd
-          ls -la
 
       - name: Set up Git credentials
         env:
