@@ -12,41 +12,36 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0 # 全ての履歴をクローン
 
       - name: Set up Git credentials
-        env:
-          GIT_ACCESS_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
         run: |
-          git_email=$(git log -1 --pretty=format:'%ae')
-          git_name=$(git log -1 --pretty=format:'%an')
-          
-          # emailとnameを設定
-          git config --global user.email "$git_email"
-          git config --global user.name "$git_name"
-
-          git remote add ogontaro_infra https://x-access-token:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_ogontaro_infra.git
-          git remote add application https://x-access-token:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_application.git
+          git config --global user.email "$(git log -1 --pretty=format:'%ae')"
+          git config --global user.name "$(git log -1 --pretty=format:'%an')"
 
       - name: Push to subtrees
         env:
           GIT_ACCESS_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
         run: |
-          git fetch origin
+          git clone https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates.git work && cd work
+          git checkout $GITHUB_SHA
+          git remote add ogontaro_infra https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_ogontaro_infra
+          git remote add application https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_application
+
           current_branch=$(git rev-parse --abbrev-ref HEAD)
           
           # templates/ogontaro_infraディレクトリの変更を確認
           if git diff --quiet HEAD^ HEAD -- templates/ogontaro_infra; then
               echo "No changes in templates/ogontaro_infra"
           else
-              git subtree push --prefix=templates/ogontaro_infra https://x-access-token:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_ogontaro_infra.git $current_branch
+              git subtree push --prefix=templates/ogontaro_infra ogontaro_infra $current_branch
           fi
           
           # templates/applicationディレクトリの変更を確認
           if git diff --quiet HEAD^ HEAD -- templates/application; then
               echo "No changes in templates/application"
           else
-              git subtree push --prefix=templates/application https://x-access-token:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_application.git $current_branch
+              git subtree push --prefix=templates/application application $current_branch
           fi
