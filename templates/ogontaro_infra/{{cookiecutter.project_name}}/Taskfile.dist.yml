@@ -41,6 +41,6 @@ tasks:
   _set-context:
     internal: true
     desc: set kubectl sandbox context
-    silent: true
     cmds:
       - kubectl config use-context ogontaro_sandbox
+    silent: true
