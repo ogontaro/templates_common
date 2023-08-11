@@ -1,5 +1,7 @@
 sync:
   defaults:
+    mode:
+      two-way-resolved
     ignore:
       vcs: false
   templates:
