@@ -43,4 +43,4 @@ tasks:
     desc: set kubectl sandbox context
     cmds:
       - kubectl config use-context ogontaro_sandbox
-    silent: true
+    silent: false
