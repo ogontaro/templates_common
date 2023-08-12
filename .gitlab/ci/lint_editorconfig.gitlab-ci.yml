@@ -1,9 +1,0 @@
-editorconfig-check:
-  stage: lint
-  image: mstruebing/editorconfig-checker
-  script:
-    - ec
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == "main" || $CI_COMMIT_REF_NAME == "develop"'
-      when: never
-    - when: always
