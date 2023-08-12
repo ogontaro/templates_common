@@ -7,7 +7,7 @@ on:
 
 jobs:
   run-repository-dispatch:
-    runs-on: [ templates-runners ]
+    runs-on: [ templates-application-runners ]
     steps:
       - name: webhook
         env:
