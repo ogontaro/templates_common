@@ -6,7 +6,7 @@ on:
 
 jobs:
   triggered-job:
-    runs-on: self-hosted
+    runs-on: [ ogontaro-infra-runners ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
