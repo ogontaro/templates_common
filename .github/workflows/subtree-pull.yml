@@ -1,0 +1,27 @@
+name: Subtree Pull
+
+on:
+  repository_dispatch:
+    types: [ subtree-pull ]
+
+jobs:
+  triggered-job:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # 全ての履歴をクローン
+
+      - name: Set up Git credentials
+        run: |
+          git config --global user.email "$(git log -1 --pretty=format:'%ae')"
+          git config --global user.name "$(git log -1 --pretty=format:'%an')"
+
+      - name: Push to subtrees
+        env:
+          GIT_ACCESS_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
+        run: |
+          GIT_EDITOR=true git subtree pull --prefix=templates/ogontaro_infra git@github.com:ogontaro/templates_ogontaro_infra.git main
+          GIT_EDITOR=true git subtree pull --prefix=templates/application git@github.com:ogontaro/templates_application.git main
+          git push origin main

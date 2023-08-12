@@ -7,7 +7,7 @@ on:
 
 jobs:
   editorconfig:
-    runs-on: "templates-runners"
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - uses: editorconfig-checker/action-editorconfig-checker@main
