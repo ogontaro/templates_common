@@ -5,7 +5,7 @@ on:
     types: [ subtree-pull ]
 
 jobs:
-  triggered-job:
+  pull-subtree:
     runs-on: [ templates-runners ]
     steps:
       - name: Checkout code
@@ -30,5 +30,5 @@ jobs:
           git remote add application https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_application
 
           GIT_EDITOR=true git subtree pull --prefix=templates/ogontaro_infra ogontaro_infra main
-          GIT_EDITOR=true git subtree pull --prefix=templates/application templates_application main
+          GIT_EDITOR=true git subtree pull --prefix=templates/application application main
           git push origin main
