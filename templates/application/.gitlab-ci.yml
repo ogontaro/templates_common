@@ -1,5 +1,0 @@
-include:
-  - local: .gitlab/ci/lint_editorconfig.gitlab-ci.yml
-
-stages:
-  - lint
