@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  run-repository-dispatch:
+  momrepo-webhook:
     runs-on: [ templates-application-runners ]
     steps:
       - name: webhook
