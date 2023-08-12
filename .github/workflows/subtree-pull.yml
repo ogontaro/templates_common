@@ -25,7 +25,6 @@ jobs:
           current_branch=$(git rev-parse --abbrev-ref HEAD)
           
           git clone https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates.git work && cd work
-          git checkout $GITHUB_SHA
           git remote add ogontaro_infra https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_ogontaro_infra
           git remote add application https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_application
 
