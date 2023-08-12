@@ -7,7 +7,7 @@ on:
 
 jobs:
   editorconfig:
-    runs-on: [ templates-runners ]
+    runs-on: [ templates-application-runners ]
     steps:
       - uses: actions/checkout@v2
       - uses: editorconfig-checker/action-editorconfig-checker@main

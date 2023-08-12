@@ -7,7 +7,7 @@ on:
 
 jobs:
   editorconfig:
-    runs-on: [ ogontaro-infra-runners ]
+    runs-on: [ templates-runners ]
     steps:
       - uses: actions/checkout@v2
       - uses: editorconfig-checker/action-editorconfig-checker@main
