@@ -13,15 +13,3 @@ service.stop:
 service.clean:
 	task service:clean
 .PHONY: service.clean
-
-mutagen.start:
-	task mutagen:start
-.PHONY: mutagen.start
-
-mutagen.status:
-	task mutagen:status
-.PHONY: mutagen.status
-
-mutagen.stop:
-	task mutagen:stop
-.PHONY: mutagen.stop
