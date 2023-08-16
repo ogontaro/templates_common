@@ -31,6 +31,7 @@ jobs:
           git remote add ogontaro_infra https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_ogontaro_infra
           git remote add application https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_application
           git remote add typescript https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_typescript
+          git remote add terraform https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_terraform
 
           # templates/ogontaro_infraディレクトリの変更を確認
           if git diff --quiet HEAD^ HEAD -- templates/ogontaro_infra; then
@@ -51,4 +52,11 @@ jobs:
               echo "No changes in templates/typescript"
           else
               git subtree push --prefix=templates/typescript typescript $current_branch
+          fi
+
+          # templates/terraformディレクトリの変更を確認
+          if git diff --quiet HEAD^ HEAD -- templates/terraform; then
+              echo "No changes in templates/terraform"
+          else
+              git subtree push --prefix=templates/terraform terraform $current_branch
           fi
