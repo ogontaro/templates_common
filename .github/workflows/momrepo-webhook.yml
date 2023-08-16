@@ -1,4 +1,4 @@
-name: Call momrepo subtree-pull ction
+name: Call momrepo subtree-pull action
 
 on:
   push:
