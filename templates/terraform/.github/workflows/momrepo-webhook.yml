@@ -7,7 +7,7 @@ on:
 
 jobs:
   momrepo-webhook:
-    runs-on: [ templates-application-runners ]
+    runs-on: [ templates-terraform-runners ]
     steps:
       - name: webhook
         env:
