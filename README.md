@@ -3,5 +3,5 @@
 ## 使い方
 
 ```shell
-cruft create git@github.com:ogontaro/tempates_ogontaro_infra.git
+cruft create git@github.com:ogontaro/templates_ogontaro_infra.git
 ```
