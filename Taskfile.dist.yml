@@ -34,4 +34,11 @@ tasks:
         else
             git subtree push --prefix=templates/application git@github.com:ogontaro/templates_application.git $current_branch
         fi
+        
+        # templates/terraformディレクトリの変更を確認
+        if git diff --quiet HEAD^ HEAD -- templates/terraform; then
+            echo "No changes in templates/terraform"
+        else
+            git subtree push --prefix=templates/terraform git@github.com:ogontaro/templates_terraform.git $current_branch
+        fi
     silent: true
