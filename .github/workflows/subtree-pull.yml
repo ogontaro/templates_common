@@ -29,9 +29,11 @@ jobs:
           git remote add application https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_application
           git remote add typescript https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_typescript
           git remote add terraform https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_terraform
+          git remote add python https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_python
 
           GIT_EDITOR=true git subtree pull --prefix=templates/ogontaro_infra ogontaro_infra main
           GIT_EDITOR=true git subtree pull --prefix=templates/application application main
           GIT_EDITOR=true git subtree pull --prefix=templates/typescript typescript main
           GIT_EDITOR=true git subtree pull --prefix=templates/terraform terraform main
+          GIT_EDITOR=true git subtree pull --prefix=templates/python python main
           git push origin main

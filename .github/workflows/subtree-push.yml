@@ -60,3 +60,10 @@ jobs:
           else
               git subtree push --prefix=templates/terraform terraform $current_branch
           fi
+          
+          # templates/pythonディレクトリの変更を確認
+          if git diff --quiet HEAD^ HEAD -- templates/python; then
+              echo "No changes in templates/python"
+          else
+              git subtree push --prefix=templates/python python $current_branch
+          fi
