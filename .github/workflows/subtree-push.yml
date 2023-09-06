@@ -32,6 +32,7 @@ jobs:
           git remote add application https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_application
           git remote add typescript https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_typescript
           git remote add terraform https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_terraform
+          git remote add python https://ogontaro:${GIT_ACCESS_TOKEN}@github.com/ogontaro/templates_python
 
           # templates/ogontaro_infraディレクトリの変更を確認
           if git diff --quiet HEAD^ HEAD -- templates/ogontaro_infra; then
