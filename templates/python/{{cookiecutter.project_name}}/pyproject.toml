@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "{{cookiecutter.project_name}}"
+version = "0.1.0"
+description = ""
+authors = ["ogontaro <ogontaro@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+
+[tool.poetry.group.dev.dependencies]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

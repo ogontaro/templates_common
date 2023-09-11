@@ -1,9 +1,7 @@
 # -------------ベースイメージ-------------
-FROM python:3.10-slim AS base
+FROM python:3.11-slim AS base
 ENV LANG="C.UTF-8" \
     TZ="Asia/Tokyo"
-
-RUN groupadd -r nonroot && useradd -r -g nonroot nonroot
 
 RUN apt-get update \
     && apt-get install -y git curl \
@@ -11,31 +9,53 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
-RUN mkdir -p /app/data
-RUN chown -R nonroot:nonroot /app
+# Pythonの環境変数
+## PYTHONDONTWRITEBYTECODE=1: __pycache__を作らない
+## PYTHONUNBUFFERED=1: 標準出力をバッファリングしない
+## PYTHONUTF8=1: UTF-8をデフォルトの文字コードにする
+## PYTHONIOENCODING=UTF-8: 標準入出力の文字コードをUTF-8にする
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONUTF8=1 \
+    PYTHONIOENCODING=UTF-8
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+RUN groupadd -r nonroot && useradd -r -g nonroot nonroot -m
+WORKDIR /home/nonroot/app
 
-COPY requirements.txt .
-RUN pip install --upgrade pip \
-    && pip install --break-system-packages -r requirements.txt
+RUN mkdir -p /home/nonroot/app \
+    && mkdir -p /home/nonroot/app/data \
+    && mkdir -p /home/nonroot/app/.venv \
+    && chown -R nonroot:nonroot /home/nonroot/
 
-COPY ./container/entrypoint.sh /
-RUN chown nonroot:nonroot /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+COPY --chown=nonroot:nonroot ./container/entrypoint.sh /home/nonroot/
+ENTRYPOINT ["/home/nonroot/entrypoint.sh"]
+USER nonroot
+
 
 # -------------開発環境-------------
 FROM base AS development
-
-RUN pip install --break-system-packages pylint pytest
+USER root
+RUN pip install poetry
 USER nonroot
+
+COPY --chown=nonroot:nonroot pyproject.toml poetry.* ./
+RUN poetry install -v
+
+
+# -------------ビルダー for 本番環境-------------
+FROM base AS builder
+USER root
+RUN pip install poetry
+USER nonroot
+
+COPY --chown=nonroot:nonroot pyproject.toml poetry.* ./
+RUN poetry install -v --only main
+COPY --chown=nonroot:nonroot . ./
 
 
 # -------------本番環境-------------
 FROM base AS production
 
-USER nonroot
+COPY --chown=nonroot:nonroot --from=builder ./home/nonroot/app /home/nonroot/app
 
-COPY . /app
+CMD ["poetry", "run", "python", "-m", "app.main"]
