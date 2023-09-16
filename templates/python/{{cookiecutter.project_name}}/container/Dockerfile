@@ -23,7 +23,7 @@ RUN groupadd -r nonroot && useradd -r -g nonroot nonroot -m
 WORKDIR /home/nonroot/app
 
 RUN mkdir -p /home/nonroot/app \
-    && mkdir -p /home/nonroot/app/data \
+    && mkdir -p /home/nonroot/app/db \
     && mkdir -p /home/nonroot/app/.venv \
     && chown -R nonroot:nonroot /home/nonroot/
 
