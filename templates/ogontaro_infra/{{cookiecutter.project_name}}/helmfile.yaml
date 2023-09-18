@@ -10,18 +10,18 @@ environments:
   production:
     values:
       - environments.production.yaml
-
+---
 repositories:
   - name: __REPOSITORY_NAME__
     url: __REPOSITORY_URL__
 
 releases:
   - name: my-chart
-    installed: {% raw %}{{ .Values.enabled }}{% endraw %}
+    installed: { % raw % }{{ .Values.enabled }}{ % endraw % }
     namespace: {{cookiecutter.project_name}}
     chart: ./chart
   - name: {{cookiecutter.project_name}}
-    installed: {% raw %}{{ .Values.enabled }}{% endraw %}
+    installed: { % raw % }{{ .Values.enabled }}{ % endraw % }
     namespace: {{cookiecutter.project_name}}
     chart: __REPOSITORY_NAME__/__SERVICE_NAME__
     version: __SERVICE_VERSION__
