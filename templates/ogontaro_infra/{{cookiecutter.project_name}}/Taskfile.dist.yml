@@ -12,31 +12,31 @@ tasks:
     cmds:
       - task: _set-context
       - rm -rf dump.yaml
-      - helmfile --environment sandbox template > dump.yaml
+      - helmfile --environment sandbox --state-values-file ../.argocd/values/sandbox.yaml template > dump.yaml
     silent: true
   apply:
     desc: helmfile apply
     cmds:
       - task: _set-context
-      - helmfile --environment sandbox apply
+      - helmfile --environment --state-values-file ../.argocd/values/sandbox.yaml sandbox apply
     silent: true
   sync:
     desc: helmfile sync
     cmds:
       - task: _set-context
-      - helmfile --environment sandbox sync
+      - helmfile --environment --state-values-file ../.argocd/values/sandbox.yaml sandbox sync
     silent: true
   lint:
     desc: helmfile lint
     cmds:
       - task: _set-context
-      - helmfile --environment sandbox template | kube-score score -
+      - helmfile --environment sandbox --state-values-file ../.argocd/values/sandbox.yaml template | kube-score score -
     silent: true
   delete:
     desc: helmfile delete
     cmds:
       - task: _set-context
-      - helmfile --environment sandbox delete
+      - helmfile --environment sandbox --state-values-file ../.argocd/values/sandbox.yaml delete
     silent: true
   _set-context:
     internal: true
