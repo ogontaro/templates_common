@@ -10,7 +10,7 @@ environments:
   production:
     values:
       - environments.production.yaml
----
+
 repositories:
   - name: __REPOSITORY_NAME__
     url: __REPOSITORY_URL__
