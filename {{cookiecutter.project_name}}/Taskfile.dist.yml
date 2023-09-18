@@ -18,13 +18,13 @@ tasks:
     desc: helmfile apply
     cmds:
       - task: _set-context
-      - helmfile --environment --state-values-file ../.argocd/values/sandbox.yaml sandbox apply
+      - helmfile --environment sandbox --state-values-file ../.argocd/values/sandbox.yaml apply
     silent: true
   sync:
     desc: helmfile sync
     cmds:
       - task: _set-context
-      - helmfile --environment --state-values-file ../.argocd/values/sandbox.yaml sandbox sync
+      - helmfile --environment sandbox --state-values-file ../.argocd/values/sandbox.yaml sync
     silent: true
   lint:
     desc: helmfile lint
