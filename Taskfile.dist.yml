@@ -5,49 +5,8 @@ tasks:
     desc: show commands
     cmds:
       - task -l --sort none
-  pull-all-subrepository:
-    desc: pull all subrepository
+  init:
+    desc: init project
     cmds:
-      - |
-        current_branch=$(git rev-parse --abbrev-ref HEAD)
-        
-        GIT_EDITOR=true git subtree pull --prefix=templates/ogontaro_infra git@github.com:ogontaro/templates_ogontaro_infra.git $current_branch
-        GIT_EDITOR=true git subtree pull --prefix=templates/application git@github.com:ogontaro/templates_application.git $current_branch
-        GIT_EDITOR=true git subtree pull --prefix=templates/terraform git@github.com:ogontaro/templates_terraform.git $current_branch
-        GIT_EDITOR=true git subtree pull --prefix=templates/python git@github.com:ogontaro/templates_python.git $current_branch
-        git push origin $current_branch
-    silent: true
-  push-to-subrepository:
-    desc: push to subrepository
-    cmds:
-      - |
-        current_branch=$(git rev-parse --abbrev-ref HEAD)
-
-        # templates/ogontaro_infraディレクトリの変更を確認
-        if git diff --quiet HEAD^ HEAD -- templates/ogontaro_infra; then
-            echo "No changes in templates/ogontaro_infra"
-        else
-            git subtree push --prefix=templates/ogontaro_infra git@github.com:ogontaro/templates_ogontaro_infra.git $current_branch
-        fi
-
-        # templates/applicationディレクトリの変更を確認
-        if git diff --quiet HEAD^ HEAD -- templates/application; then
-            echo "No changes in templates/application"
-        else
-            git subtree push --prefix=templates/application git@github.com:ogontaro/templates_application.git $current_branch
-        fi
-        
-        # templates/terraformディレクトリの変更を確認
-        if git diff --quiet HEAD^ HEAD -- templates/terraform; then
-            echo "No changes in templates/terraform"
-        else
-            git subtree push --prefix=templates/terraform git@github.com:ogontaro/templates_terraform.git $current_branch
-        fi
-        
-        # templates/pythonディレクトリの変更を確認
-        if git diff --quiet HEAD^ HEAD -- templates/python; then
-            echo "No changes in templates/python"
-        else
-            git subtree push --prefix=templates/terraform git@github.com:ogontaro/templates_python.git $current_branch
-        fi
+      - bash ./init.sh
     silent: true

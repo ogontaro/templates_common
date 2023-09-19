@@ -1,1 +1,8 @@
 .idea
+
+templates/application
+templates/ogontaro_infra/kubernetes-app
+templates/ogontaro_infra/kubernetes-common
+templates/python
+templates/terraform
+templates/typescript
