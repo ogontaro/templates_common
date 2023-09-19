@@ -1,5 +1,0 @@
-locals {
-  hoge = {
-    name = "hoge"
-  }
-}
