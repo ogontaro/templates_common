@@ -6,3 +6,4 @@ templates/ogontaro_infra/kubernetes-common
 templates/python
 templates/terraform
 templates/typescript
+templates/typescript_nodejs
