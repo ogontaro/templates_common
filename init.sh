@@ -19,12 +19,12 @@ fi
 if [ ! -d ./templates/terraform ] ; then
   git clone git@github.com:ogontaro/templates_terraform.git templates/terraform
 fi
-if [ ! -d ./templates/typescript ] ; then
-  git clone git@github.com:ogontaro/templates_typescript.git templates/typescript
+if [ ! -d ./templates/typescript/standard ] ; then
+  git clone git@github.com:ogontaro/templates_typescript.git templates/typescript/standard
 fi
-if [ ! -d ./templates/typescript_nodejs ] ; then
-  git clone git@github.com:ogontaro/templates_typescript_nodejs.git templates/typescript_nodejs
+if [ ! -d ./templates/typescript/nodejs ] ; then
+  git clone git@github.com:ogontaro/templates_typescript_nodejs.git templates/typescript/nodejs
 fi
-if [ ! -d ./templates/typescript_deno ] ; then
-  git clone git@github.com:ogontaro/templates_typescript_deno.git templates/typescript_deno
+if [ ! -d ./templates/typescript/deno ] ; then
+  git clone git@github.com:ogontaro/templates_typescript_deno.git templates/typescript/deno
 fi

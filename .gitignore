@@ -5,6 +5,6 @@ templates/ogontaro_infra/kubernetes-app
 templates/ogontaro_infra/kubernetes-common
 templates/python
 templates/terraform
-templates/typescript
-templates/typescript_nodejs
-templates/typescript_deno
+templates/typescript/standard
+templates/typescript/nodejs
+templates/typescript/deno
