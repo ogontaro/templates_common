@@ -22,3 +22,9 @@ fi
 if [ ! -d ./templates/typescript ] ; then
   git clone git@github.com:ogontaro/templates_typescript.git templates/typescript
 fi
+if [ ! -d ./templates/typescript_nodejs ] ; then
+  git clone git@github.com:ogontaro/templates_typescript_nodejs.git templates/typescript_nodejs
+fi
+if [ ! -d ./templates/typescript_deno ] ; then
+  git clone git@github.com:ogontaro/templates_typescript_deno.git templates/typescript_deno
+fi

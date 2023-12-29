@@ -7,3 +7,4 @@ templates/python
 templates/terraform
 templates/typescript
 templates/typescript_nodejs
+templates/typescript_deno
