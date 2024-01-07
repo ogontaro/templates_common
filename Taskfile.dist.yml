@@ -5,8 +5,3 @@ tasks:
     desc: show commands
     cmds:
       - task -l --sort none
-  init:
-    desc: init project
-    cmds:
-      - bash ./init.sh
-    silent: true
