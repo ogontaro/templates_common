@@ -6,3 +6,4 @@ templates/terraform
 templates/typescript/standard
 templates/typescript/nodejs
 templates/typescript/deno
+templates/rust/standard

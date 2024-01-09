@@ -13,3 +13,4 @@ git subtree add --prefix=templates/${PROJECT_NAME} git@github.com:ogontaro/templ
 - [python](https://github.com/ogontaro/templates_python)
 - [typescript/nodejs](https://github.com/ogontaro/templates_typescript_nodejs)
 - [typescript/deno](https://github.com/ogontaro/templates_typescript_deno)
+- [rust/standard](https://github.com/ogontaro/templates_rust_standard )
