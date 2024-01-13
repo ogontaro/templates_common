@@ -10,9 +10,6 @@ if [ ! -d ./templates/ogontaro_infra/kubernetes-app ] ; then
 fi
 
 # -----------------typescript-----------------
-if [ ! -d ./templates/typescript/standard ] ; then
-  git clone git@github.com:ogontaro/templates_typescript.git templates/typescript/standard
-fi
 if [ ! -d ./templates/typescript/nodejs ] ; then
   git clone git@github.com:ogontaro/templates_typescript_nodejs.git templates/typescript/nodejs
 fi
@@ -34,4 +31,7 @@ if [ ! -d ./templates/python ] ; then
 fi
 if [ ! -d ./templates/terraform ] ; then
   git clone git@github.com:ogontaro/templates_terraform.git templates/terraform
+fi
+if [ ! -d ./templates/ansible ] ; then
+  git clone git@github.com:ogontaro/templates_ansible.git templates/ansible
 fi

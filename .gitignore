@@ -3,7 +3,7 @@ templates/ogontaro_infra/kubernetes-app
 templates/ogontaro_infra/kubernetes-common
 templates/python
 templates/terraform
-templates/typescript/standard
+templates/ansible
 templates/typescript/nodejs
 templates/typescript/deno
 templates/rust/standard
