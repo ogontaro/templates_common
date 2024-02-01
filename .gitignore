@@ -7,3 +7,4 @@ templates/ansible
 templates/typescript/nodejs
 templates/typescript/deno
 templates/rust/standard
+test
