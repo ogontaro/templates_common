@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -eu
 
+if [ ! -d ./template ] ; then
+  git clone git@github.com:ogontaro/templates_template.git template
+fi
+
 # -----------------ogontaro_infra-----------------
 if [ ! -d ./templates/ogontaro_infra/kubernetes-common ] ; then
   git clone git@github.com:ogontaro/templates_ogontaro_infra_kubernetes-common.git templates/ogontaro_infra/kubernetes-common

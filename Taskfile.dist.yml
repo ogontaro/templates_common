@@ -5,3 +5,7 @@ tasks:
     desc: show commands
     cmds:
       - task -l --sort none
+  cruft:update:
+    desc: update templates from template
+    cmds:
+      -
