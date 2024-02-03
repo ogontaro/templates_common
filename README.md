@@ -9,7 +9,7 @@ git subtree add --prefix=templates/${PROJECT_NAME} git@github.com:ogontaro/templ
 
 ## テンプレートリスト
 
-- [ansible](https://github.com/ogontaro/templates_ansible))
+- [ansible](https://github.com/ogontaro/templates_ansible)
 - [terraform](https://github.com/ogontaro/templates_terraform)
 - [python](https://github.com/ogontaro/templates_python)
 - [typescript/nodejs](https://github.com/ogontaro/templates_typescript_nodejs)
