@@ -39,3 +39,6 @@ fi
 if [ ! -d ./templates/ansible ] ; then
   git clone git@github.com:ogontaro/templates_ansible.git templates/ansible
 fi
+if [ ! -d ./templates/c ] ; then
+  git clone git@github.com:ogontaro/templates_c.git templates/c
+fi
