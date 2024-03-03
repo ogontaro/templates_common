@@ -25,6 +25,9 @@ fi
 if [ ! -d ./templates/rust/standard ] ; then
   git clone https://github.com/ogontaro/templates_rust_standard templates/rust/standard
 fi
+if [ ! -d ./templates/rust/cli ] ; then
+  git clone https://github.com/ogontaro/templates_rust_cli templates/rust/cli
+fi
 
 # -----------------other-----------------
 if [ ! -d ./templates/application ] ; then

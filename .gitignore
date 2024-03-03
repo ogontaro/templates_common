@@ -7,5 +7,6 @@ templates/ansible
 templates/typescript/nodejs
 templates/typescript/deno
 templates/rust/standard
+templates/rust/cli
 templates/c
 test
