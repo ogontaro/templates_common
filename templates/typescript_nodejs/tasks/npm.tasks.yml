@@ -1,0 +1,12 @@
+version: '3'
+
+tasks:
+  init:
+    desc: init npm project for {{cookiecutter.project_name}}
+    cmds:
+      - asdf install
+      - npm install
+  lint:
+    desc: lint npm project for {{cookiecutter.project_name}}
+    cmds:
+      - npm run lint

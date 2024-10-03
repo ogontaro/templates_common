@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  update:
+    desc: update cruft project for {{cookiecutter.project_name}}
+    cmds:
+      - cruft update --skip-apply-ask --refresh-private-variables

@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  migrate:
+    desc: prisma migrate for {{cookiecutter.project_name}}
+    cmds:
+      - npx prisma migrate dev
