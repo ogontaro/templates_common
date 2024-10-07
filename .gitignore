@@ -1,12 +1,1 @@
-templates/application
-templates/ogontaro_infra/kubernetes-app
-templates/ogontaro_infra/kubernetes-common
-templates/python
-templates/terraform
-templates/ansible
-templates/typescript/nodejs
-templates/typescript/deno
-templates/rust/standard
-templates/rust/cli
-templates/c
 test

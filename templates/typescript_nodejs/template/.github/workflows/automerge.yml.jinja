@@ -1,3 +1,4 @@
+
 name: automerge
 on:
   pull_request:
@@ -16,10 +17,10 @@ on:
   check_suite:
     types:
       - completed
-  status: { }
+  status: {}
 jobs:
   automerge:
-    runs-on: [ "{{cookiecutter.github_runner_scale_set_name}}" ]
+    runs-on: ["{{github_runner_scale_set_name}}"]
 
     steps:
       - id: automerge
@@ -30,3 +31,4 @@ jobs:
           MERGE_LABELS: "auto-merge"
           UPDATE_LABELS: "auto-merge"
           MERGE_DELETE_BRANCH: true # マージブランチを削除するか(default: false)
+

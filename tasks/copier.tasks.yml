@@ -1,0 +1,58 @@
+version: "3"
+
+tasks:
+  create:
+    desc: create new project from template
+    cmds:
+      - |
+        echo "プロジェクト名を入力してください"
+        read PROJECT_NAME;
+        copier copy templates/template templates/${PROJECT_NAME} --data project_name=${PROJECT_NAME};
+        mv templates/${PROJECT_NAME}/template/.copier-answers.yml answers/${PROJECT_NAME}.copier-answers.yml
+        echo "${PROJECT_NAME} created";
+  update:
+    desc: update project from template
+    cmds:
+      - |
+        echo "更新するプロジェクトを選択してください："
+        select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.yml//'); do
+          if [ -n "$PROJECT_NAME" ]; then
+            copier update templates/${PROJECT_NAME} --answers-file ../../answers/${PROJECT_NAME}.copier-answers.yml
+            echo "${PROJECT_NAME} を更新しました"
+            break
+          else
+            echo "無効な選択です。もう一度お試しください。"
+          fi
+        done
+        echo "${PROJECT_NAME} updated";
+  delete:
+    desc: delete project from template
+    cmds:
+      - |
+        echo "削除するプロジェクト名を選択してください"
+        select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.yml//'); do
+          if [ -n "$PROJECT_NAME" ]; then
+            rm -rf templates/${PROJECT_NAME}
+            rm -rf answers/${PROJECT_NAME}.copier-answers.yml
+            echo "${PROJECT_NAME} deleted"
+            break
+          else
+            echo "無効な選択です。もう一度お試しください。"
+          fi
+        done
+  create:test:
+    desc: test create new project from template
+    cmds:
+      # - copier copy templates/template templates/go --answers-file ../../../answers/go.copier-answers.yml --data project_name=go
+      - |
+        echo "Type value of FOO:"
+        read FOO;
+        echo "You said: ${FOO}";
+  update:test:
+    desc: test update project from template
+    cmds:
+      - copier update templates/go --answers-file ../../answers/go.copier-answers.yml
+  delete:test:
+    desc: test delete project from template
+    cmds:
+      - rm -rf templates/go
