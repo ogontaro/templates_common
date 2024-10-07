@@ -4,3 +4,6 @@ _subdirectory: template
 project_name:
   type: str
   help: What is your project name?
+github_runner_scale_set_name:
+  type: str
+  help: github_runner_scale_set_nameはなんですか？

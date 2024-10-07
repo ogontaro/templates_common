@@ -1,0 +1,45 @@
+name: Subtree Push
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  SUBTREE_CONFIGS: |
+    {
+      "templates/template": "ogontaro/templates_template.git"
+    }
+
+jobs:
+  subtree-push:
+    runs-on: [templates-runners]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Split and push subtrees
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.COPIER_GITHUB_ACCESS_TOKEN }}
+        run: |
+          git config --global user.name 'ogontaro'
+          git config --global user.email 'ogontaro@github.com'
+
+          # Github Actionsでは特別なヘッダーがあるので、それを削除する
+          # https://stackoverflow.com/questions/64270867/auth-error-trying-to-copy-a-repo-with-github-actions
+          git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
+
+          echo '${{ env.SUBTREE_CONFIGS }}' | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r path repo; do
+            if git diff --quiet HEAD^ HEAD -- "$path"; then
+              echo "No changes in $path, skipping..."
+              continue
+            fi
+            echo "Processing $path -> $repo"
+            git subtree split --prefix=$path -b temp-branch
+            git remote add upstream https://ogontaro:${GITHUB_ACCESS_TOKEN}@github.com/${repo}
+            git push -f upstream temp-branch:main
+            git branch -D temp-branch
+          done

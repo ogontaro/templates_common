@@ -7,8 +7,8 @@ tasks:
       - |
         echo "プロジェクト名を入力してください"
         read PROJECT_NAME;
-        copier copy templates/template templates/${PROJECT_NAME} --data project_name=${PROJECT_NAME};
-        mv templates/${PROJECT_NAME}/template/.copier-answers.yml answers/${PROJECT_NAME}.copier-answers.yml
+        copier copy --vcs-ref=main --data project_name=${PROJECT_NAME} https://github.com/ogontaro/templates_template.git templates/${PROJECT_NAME};
+        mv templates/${PROJECT_NAME}/template/.copier-answers.yml answers/.copier-answers.${PROJECT_NAME}.yml
         echo "${PROJECT_NAME} created";
   update:
     desc: update project from template
@@ -17,7 +17,7 @@ tasks:
         echo "更新するプロジェクトを選択してください："
         select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.yml//'); do
           if [ -n "$PROJECT_NAME" ]; then
-            copier update templates/${PROJECT_NAME} --answers-file ../../answers/${PROJECT_NAME}.copier-answers.yml
+            copier update --vcs-ref=main --skip-answered templates/${PROJECT_NAME} --answers-file ../../answers/.copier-answers.${PROJECT_NAME}.yml
             echo "${PROJECT_NAME} を更新しました"
             break
           else
@@ -33,7 +33,7 @@ tasks:
         select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.yml//'); do
           if [ -n "$PROJECT_NAME" ]; then
             rm -rf templates/${PROJECT_NAME}
-            rm -rf answers/${PROJECT_NAME}.copier-answers.yml
+            rm -rf answers/.copier-answers.${PROJECT_NAME}.yml
             echo "${PROJECT_NAME} deleted"
             break
           else
@@ -43,16 +43,15 @@ tasks:
   create:test:
     desc: test create new project from template
     cmds:
-      # - copier copy templates/template templates/go --answers-file ../../../answers/go.copier-answers.yml --data project_name=go
       - |
-        echo "Type value of FOO:"
-        read FOO;
-        echo "You said: ${FOO}";
+        copier copy --vcs-ref=main --data project_name=go https://github.com/ogontaro/templates_template.git templates/go
+        mv templates/go/.copier-answers.yml answers/.copier-answers.go.yml
   update:test:
     desc: test update project from template
     cmds:
-      - copier update templates/go --answers-file ../../answers/go.copier-answers.yml
+      - copier update --vcs-ref=main --skip-answered templates/go --answers-file ../../answers/.copier-answers.go.yml
   delete:test:
     desc: test delete project from template
     cmds:
       - rm -rf templates/go
+      - rm -rf answers/.copier-answers.go.yml
