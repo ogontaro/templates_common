@@ -1,9 +1,7 @@
-version: '3'
+version: "3"
 
 includes:
-  npm: 'tasks/npm.tasks.yml'
-  prisma: 'tasks/prisma.tasks.yml'
-  cruft: 'tasks/cruft.tasks.yml'
+  copier: "tasks/copier.tasks.yml"
 
 tasks:
   default:

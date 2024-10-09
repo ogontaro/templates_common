@@ -6,16 +6,32 @@ tasks:
     cmds:
       - |
         echo "プロジェクト名を入力してください"
-        read PROJECT_NAME;
-        copier copy --vcs-ref=main --data project_name=${PROJECT_NAME} https://github.com/ogontaro/templates_template.git templates/${PROJECT_NAME};
-        mv templates/${PROJECT_NAME}/template/.copier-answers.yml answers/.copier-answers.${PROJECT_NAME}.yml
+        read PROJECT_NAME
+
+        DEFAULT_REPO_URL="https://github.com/ogontaro/templates_${PROJECT_NAME}.git"
+        echo "リポジトリのURLをデフォルト (${DEFAULT_REPO_URL}) で設定しますか？ [Y/n]"
+        read -r use_default
+
+        if [[ -z "$use_default" || "$use_default" =~ ^[Yy]$ ]]; then
+          REPOSITORY_URL=$DEFAULT_REPO_URL
+        else
+          read -p "カスタムリポジトリのURLを入力してください: " REPOSITORY_URL
+        fi
+
+        # ユーザーが何も入力しなかった場合、デフォルト値を使用
+        REPOSITORY_URL=${REPOSITORY_URL:-$DEFAULT_REPO_URL}
+
+        copier copy --vcs-ref=main --data project_name=${PROJECT_NAME} https://github.com/ogontaro/templates_template.git templates/${PROJECT_NAME}
+        mv templates/${PROJECT_NAME}/.copier-answers.yml answers/.copier-answers.${PROJECT_NAME}.yml
+        yq e ".templates.\"${PROJECT_NAME}\" = {\"template_path\": \"templates/${PROJECT_NAME}\", \"sync_target_repo\": \"${REPOSITORY_URL}\"}" -i .templates-sync.yml
+
         echo "${PROJECT_NAME} created";
   update:
     desc: update project from template
     cmds:
       - |
         echo "更新するプロジェクトを選択してください："
-        select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.yml//'); do
+        select PROJECT_NAME in $(ls answers/.copier-answers.*.yml | xargs -n 1 basename | sed 's/\.copier-answers\.//; s/\.yml//'); do
           if [ -n "$PROJECT_NAME" ]; then
             copier update --vcs-ref=main --skip-answered templates/${PROJECT_NAME} --answers-file ../../answers/.copier-answers.${PROJECT_NAME}.yml
             echo "${PROJECT_NAME} を更新しました"
@@ -34,6 +50,7 @@ tasks:
           if [ -n "$PROJECT_NAME" ]; then
             rm -rf templates/${PROJECT_NAME}
             rm -rf answers/.copier-answers.${PROJECT_NAME}.yml
+            yq e 'del(.templates.${PROJECT_NAME})' -i .templates-sync.yml
             echo "${PROJECT_NAME} deleted"
             break
           else
@@ -45,6 +62,7 @@ tasks:
     cmds:
       - |
         copier copy --vcs-ref=main --data project_name=go https://github.com/ogontaro/templates_template.git templates/go
+        yq e '.templates.go = {"template_path": "templates/go", "sync_target_repo": "https://github.com/ogontaro/templates_go.git"}' -i .templates-sync.yml
         mv templates/go/.copier-answers.yml answers/.copier-answers.go.yml
   update:test:
     desc: test update project from template
@@ -55,3 +73,4 @@ tasks:
     cmds:
       - rm -rf templates/go
       - rm -rf answers/.copier-answers.go.yml
+      - yq e 'del(.templates.go)' -i .templates-sync.yml

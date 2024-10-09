@@ -1,0 +1,57 @@
+name: Template Sync
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  template-sync:
+    runs-on: [templates-runners]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Git
+        run: |
+          git config --global user.name 'ogontaro'
+          git config --global user.email 'ogontaro@github.com'
+
+          # Github Actionsでは特別なヘッダーがあるので、それを削除する
+          # https://stackoverflow.com/questions/64270867/auth-error-trying-to-copy-a-repo-with-github-actions
+          git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
+      - name: template sync
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.COPIER_GITHUB_ACCESS_TOKEN }}
+        run: |
+          git subtree split --prefix=templates/template -b temp-branch
+          git remote add upstream https://ogontaro:${GITHUB_ACCESS_TOKEN}@github.com/ogontaro/templates_template
+          git push -f upstream temp-branch:main
+          git remote rm upstream
+          git branch -D temp-branch
+      - name: Split and push subtrees
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.COPIER_GITHUB_ACCESS_TOKEN }}
+        run: |
+          set -eu
+          yq e -o=tsv '.templates[] | [.template_path, .sync_target_repo] | @tsv' .templates-sync.yml | while read -r path repo; do
+            if git diff --quiet HEAD^ HEAD -- "$path"; then
+              echo "No changes in $path, skipping..."
+              continue
+            fi
+            # フルURLからホストとリポジトリパスを抽出
+            repo_base=$(echo "$repo" | sed -E 's#https://([^/]+)/(.+)#\1#')
+            repo_path=$(echo "$repo" | sed -E 's#https://([^/]+)/(.+)#\2#')
+            # 認証情報を付与したURLを構築
+            repo_url="https://ogontaro:${GITHUB_ACCESS_TOKEN}@${repo_base}/${repo_path}"
+
+            echo "Processing $path -> $repo"
+            git remote add upstream "$repo_url"
+            git subtree split --prefix=$path -b temp-branch
+            git push -f upstream temp-branch:main
+            git remote rm upstream
+            git branch -D temp-branch
+          done

@@ -1,0 +1,4 @@
+templates:
+  typescript_nodejs:
+    template_path: templates/typescript_nodejs
+    sync_target_repo: https://github.com/ogontaro/templates_typescript_nodejs.git
