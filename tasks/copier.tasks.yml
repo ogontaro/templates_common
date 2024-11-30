@@ -31,7 +31,7 @@ tasks:
     cmds:
       - |
         echo "更新するプロジェクトを選択してください："
-        select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.//; s/\.yml//'); do
+        select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.yml$//'); do
           if [ -n "$PROJECT_NAME" ]; then
             copier update --vcs-ref=main --skip-answered templates/${PROJECT_NAME} --answers-file ../../answers/${PROJECT_NAME}.copier-answers.yml
             echo "${PROJECT_NAME} を更新しました"
@@ -46,7 +46,7 @@ tasks:
     cmds:
       - |
         echo "テストするプロジェクト名を選択してください"
-        select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.yml//'); do
+        select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.yml$//'); do
           if [ -n "$PROJECT_NAME" ]; then
             rm -rf test/${PROJECT_NAME}_test
             copier copy --data project_name=${PROJECT_NAME}_test --data github_runner_scale_set_name=${PROJECT_NAME}_test templates/${PROJECT_NAME} test/${PROJECT_NAME}_test
