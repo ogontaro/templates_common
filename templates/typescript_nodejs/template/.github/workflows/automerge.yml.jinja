@@ -27,7 +27,7 @@ jobs:
         name: automerge
         uses: "pascalgn/automerge-action@v0.16.3"
         env:
-          GITHUB_TOKEN: ${{ secrets.CRUFT_GITHUB_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ '{{' }} secrets.CRUFT_GITHUB_ACCESS_TOKEN {{ '}}' }}
           MERGE_LABELS: "auto-merge"
           UPDATE_LABELS: "auto-merge"
           MERGE_DELETE_BRANCH: true # マージブランチを削除するか(default: false)
