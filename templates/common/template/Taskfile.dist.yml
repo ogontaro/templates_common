@@ -1,0 +1,10 @@
+version: "3"
+
+includes:
+  copier: "tasks/copier.tasks.yml"
+
+tasks:
+  default:
+    desc: show commands
+    cmds:
+      - task -l --sort none

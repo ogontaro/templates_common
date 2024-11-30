@@ -1,0 +1,7 @@
+version: "3"
+
+tasks:
+  update:
+    desc: update copier project for common
+    cmds:
+      - copier update --vcs-ref=main
