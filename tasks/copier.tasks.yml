@@ -22,7 +22,7 @@ tasks:
         REPOSITORY_URL=${REPOSITORY_URL:-$DEFAULT_REPO_URL}
 
         copier copy --vcs-ref=main --data project_name=${PROJECT_NAME} https://github.com/ogontaro/templates_template.git templates/${PROJECT_NAME}
-        mv templates/${PROJECT_NAME}/.copier-answers.yml answers/.copier-answers.${PROJECT_NAME}.yml
+        mv templates/${PROJECT_NAME}/.copier-answers.yml answers/${PROJECT_NAME}.copier-answers.yml
         yq e ".templates.\"${PROJECT_NAME}\" = {\"template_path\": \"templates/${PROJECT_NAME}\", \"sync_target_repo\": \"${REPOSITORY_URL}\"}" -i .templates-sync.yml
 
         echo "${PROJECT_NAME} created";
@@ -31,7 +31,7 @@ tasks:
     cmds:
       - |
         echo "更新するプロジェクトを選択してください："
-        select PROJECT_NAME in $(ls answers/.copier-answers.*.yml | xargs -n 1 basename | sed 's/\.copier-answers\.//; s/\.yml//'); do
+        select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.//; s/\.yml//'); do
           if [ -n "$PROJECT_NAME" ]; then
             copier update --vcs-ref=main --skip-answered templates/${PROJECT_NAME} --answers-file ../../answers/.copier-answers.${PROJECT_NAME}.yml
             echo "${PROJECT_NAME} を更新しました"
@@ -41,8 +41,22 @@ tasks:
           fi
         done
         echo "${PROJECT_NAME} updated";
+  test:
+    desc: test project
+    cmds:
+      - |
+        echo "テストするプロジェクト名を選択してください"
+        select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.yml//'); do
+          if [ -n "$PROJECT_NAME" ]; then
+            rm -rf test/${PROJECT_NAME}_test
+            copier copy --data project_name=${PROJECT_NAME}_test --data github_runner_scale_set_name=${PROJECT_NAME}_test templates/${PROJECT_NAME} test/${PROJECT_NAME}_test
+            break
+          else
+            echo "無効な選択です。もう一度お試しください。"
+          fi
+        done
   delete:
-    desc: delete project from template
+    desc: delete project
     cmds:
       - |
         echo "削除するプロジェクト名を選択してください"
