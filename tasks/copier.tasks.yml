@@ -33,7 +33,7 @@ tasks:
         echo "更新するプロジェクトを選択してください："
         select PROJECT_NAME in $(ls answers/*.copier-answers.yml | xargs -n 1 basename | sed 's/\.copier-answers\.//; s/\.yml//'); do
           if [ -n "$PROJECT_NAME" ]; then
-            copier update --vcs-ref=main --skip-answered templates/${PROJECT_NAME} --answers-file ../../answers/.copier-answers.${PROJECT_NAME}.yml
+            copier update --vcs-ref=main --skip-answered templates/${PROJECT_NAME} --answers-file ../../answers/${PROJECT_NAME}.copier-answers.yml
             echo "${PROJECT_NAME} を更新しました"
             break
           else
