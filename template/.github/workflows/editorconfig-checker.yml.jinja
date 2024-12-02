@@ -1,0 +1,12 @@
+name: EditorConfig Checker
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  editorconfig:
+    runs-on: [ templates-runners ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: editorconfig-checker/action-editorconfig-checker@main
+      - run: ec
