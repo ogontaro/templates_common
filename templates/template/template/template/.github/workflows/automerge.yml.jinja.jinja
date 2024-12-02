@@ -1,5 +1,6 @@
 {%- raw -%}
 name: automerge
+
 on:
   pull_request:
     types:
@@ -18,6 +19,7 @@ on:
     types:
       - completed
   status: {}
+
 jobs:
   automerge:
     runs-on: ["{{github_runner_scale_set_name}}"]
