@@ -2,9 +2,6 @@ templates:
   typescript_nodejs:
     template_path: templates/typescript_nodejs
     sync_target_repo: https://github.com/ogontaro/templates_typescript_nodejs.git
-  common:
-    template_path: templates/common
-    sync_target_repo: https://github.com/ogontaro/templates_common.git
   go:
     template_path: templates/go
     sync_target_repo: https://github.com/ogontaro/templates_go.git
