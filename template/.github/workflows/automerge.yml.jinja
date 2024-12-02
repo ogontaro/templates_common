@@ -1,3 +1,8 @@
+# Pull Requestに自動でレビュワーや担当者をアサインします。
+# https://github.com/kentaro-m/auto-assign-action
+# App版はこちら
+# https://probot.github.io/apps/auto-assign/
+---
 name: automerge
 
 on:
@@ -23,7 +28,6 @@ on:
 jobs:
   automerge:
     runs-on: ["{{github_runner_scale_set_name}}"]
-
     steps:
       - id: automerge
         name: automerge
