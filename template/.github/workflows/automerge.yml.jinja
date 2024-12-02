@@ -1,6 +1,7 @@
 name: automerge
 
 on:
+  workflow_dispatch:
   pull_request:
     types:
       - labeled
@@ -32,3 +33,15 @@ jobs:
           MERGE_LABELS: "auto-merge"
           UPDATE_LABELS: "auto-merge"
           MERGE_DELETE_BRANCH: true # マージブランチを削除するか(default: false)
+
+defaults:
+  run:
+    # デフォルトシェルを定義して、pipefailオプションが全ステップで有効にする
+    # https://gihyo.jp/article/2024/10/good-practices-for-github-actions
+    shell: bash
+
+# 連続してpushした際に、一つ前の実行中のjobが停止するようにする
+# https://zenn.dev/katzumi/articles/using-concurrency-at-github-actions
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true

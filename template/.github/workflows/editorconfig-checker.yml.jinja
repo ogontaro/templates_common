@@ -1,14 +1,27 @@
 name: EditorConfig Checker
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - main
 
 jobs:
   editorconfig:
-    runs-on: [ templates-runners ]
+    runs-on: ["{{github_runner_scale_set_name}}"]
     steps:
       - uses: actions/checkout@v4
       - uses: editorconfig-checker/action-editorconfig-checker@main
-      - run: ec
+      - run: editorconfig-checker
+
+defaults:
+  run:
+    # デフォルトシェルを定義して、pipefailオプションが全ステップで有効にする
+    # https://gihyo.jp/article/2024/10/good-practices-for-github-actions
+    shell: bash
+
+# 連続してpushした際に、一つ前の実行中のjobが停止するようにする
+# https://zenn.dev/katzumi/articles/using-concurrency-at-github-actions
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
