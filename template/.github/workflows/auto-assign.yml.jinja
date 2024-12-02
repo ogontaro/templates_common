@@ -1,0 +1,28 @@
+# Pull Requestに自動でレビュワーや担当者をアサインします。
+# https://github.com/kentaro-m/auto-assign-action
+# App版はこちら
+# https://probot.github.io/apps/auto-assign/
+---
+name: "Auto Assign"
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+jobs:
+  add-reviews:
+    runs-on: [templates-runners]
+    steps:
+      - uses: kentaro-m/auto-assign-action@v2.0.0
+
+defaults:
+  run:
+    # デフォルトシェルを定義して、pipefailオプションが全ステップで有効にする
+    # https://gihyo.jp/article/2024/10/good-practices-for-github-actions
+    shell: bash
+
+# 連続してpushした際に、一つ前の実行中のjobが停止するようにする
+# https://zenn.dev/katzumi/articles/using-concurrency-at-github-actions
+concurrency:
+  group: ${{ '{{' }} github.workflow {{ '}}' }}-${{ '{{' }} github.ref {{ '}}' }}
+  cancel-in-progress: true
