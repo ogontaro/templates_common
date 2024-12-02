@@ -43,5 +43,5 @@ defaults:
 # 連続してpushした際に、一つ前の実行中のjobが停止するようにする
 # https://zenn.dev/katzumi/articles/using-concurrency-at-github-actions
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ '{{' }} github.workflow {{ '}}' }}-${{ '{{' }} github.ref {{ '}}' }}
   cancel-in-progress: true
