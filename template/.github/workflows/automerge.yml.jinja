@@ -27,7 +27,7 @@ on:
 
 jobs:
   automerge:
-    runs-on: ["{{github_runner_scale_set_name}}"]
+    runs-on: ["{{ github_runner_scale_set_name | default('ubuntu-latest') }}"]
     steps:
       - id: automerge
         name: automerge

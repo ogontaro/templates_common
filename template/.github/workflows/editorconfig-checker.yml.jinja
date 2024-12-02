@@ -8,7 +8,7 @@ on:
 
 jobs:
   editorconfig:
-    runs-on: ["{{github_runner_scale_set_name}}"]
+    runs-on: ["{{ github_runner_scale_set_name | default('ubuntu-latest') }}"]
     steps:
       - uses: actions/checkout@v4
       - uses: editorconfig-checker/action-editorconfig-checker@main
