@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ["{{ github_runner_scale_set_name | default('ubuntu-latest') }}"]
+    runs-on: ["{{ github_runner_scale_set_name if github_runner_scale_set_name != None else 'ubuntu-latest' }}"]
     steps:
       - uses: "actions/checkout@v4"
       - name: "TODO to Issue"
