@@ -1,0 +1,28 @@
+# Pull Requestにアサイン担当者を追加するかどうかを指定します
+# 'author'を指定すると、PRの作成者をアサイン担当者として設定します
+addAssignees: author
+
+# アサイン担当者のリストを指定します。この値が設定されると、reviewersの設定を上書きします
+# assignees:
+#   - assigneeA
+
+# Pull Requestに追加するアサイン担当者の数を指定します
+# 0を指定すると、すべてのアサイン担当者を追加します
+# 未設定の場合、numberOfReviewersの値を使用します
+# numberOfAssignees: 2
+
+# Pull Requestにレビュー担当者を追加するかどうかを指定します
+addReviewers: false
+# Pull Requestに追加するレビュー担当者のリスト（GitHubユーザー名）
+# reviewers:
+# - reviewerA
+# - reviewerB
+# - reviewerC
+
+# Pull Requestに追加するレビュー担当者の数を指定します
+# 0を指定すると、すべてのレビュー担当者を追加します（デフォルト: 0）
+# numberOfReviewers: 0
+
+# Pull Requestに特定のキーワードが含まれる場合、レビュー担当者の追加処理をスキップします
+# skipKeywords:
+#   - wip
