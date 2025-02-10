@@ -3,7 +3,7 @@
 # App版はこちら
 # https://probot.github.io/apps/auto-assign/
 ---
-name: "Auto Assign"
+name: Auto Assign
 
 on:
   pull_request:
@@ -12,6 +12,8 @@ on:
 jobs:
   add-assign:
     runs-on: ["{{ github_runner_scale_set_name or 'ubuntu-latest' }}"]
+    # 6時間も待たされないようにタイムアウトを設定
+    timeout-minutes: 5
     steps:
       - uses: kentaro-m/auto-assign-action@v2.0.0
 
