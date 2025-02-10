@@ -1,6 +1,6 @@
 # ToDoコメントがあるコードをissueにします
 ---
-name: "Run TODO to Issue"
+name: TODO to Issue
 
 on:
   workflow_dispatch:
@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: ["{{ github_runner_scale_set_name or 'ubuntu-latest' }}"]
+    # 6時間も待たされないようにタイムアウトを設定
+    timeout-minutes: 5
     steps:
       - uses: "actions/checkout@v4"
       - name: "TODO to Issue"
@@ -21,9 +23,3 @@ defaults:
     # デフォルトシェルを定義して、pipefailオプションが全ステップで有効にする
     # https://gihyo.jp/article/2024/10/good-practices-for-github-actions
     shell: bash
-
-# 連続してpushした際に、一つ前の実行中のjobが停止するようにする
-# https://zenn.dev/katzumi/articles/using-concurrency-at-github-actions
-concurrency:
-  group: ${{ '{{' }} github.workflow {{ '}}' }}-${{ '{{' }} github.ref {{ '}}' }}
-  cancel-in-progress: true

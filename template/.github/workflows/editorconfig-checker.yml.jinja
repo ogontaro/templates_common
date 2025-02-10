@@ -12,6 +12,8 @@ on:
 jobs:
   editorconfig:
     runs-on: ["{{ github_runner_scale_set_name or 'ubuntu-latest' }}"]
+    # 6時間も待たされないようにタイムアウトを設定
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: editorconfig-checker/action-editorconfig-checker@main
